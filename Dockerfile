@@ -1,8 +1,9 @@
 # Use the official PHP image from Docker Hub
 FROM php:8.0-apache
 
-# Install additional PHP extensions if needed
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# Install dependencies and PHP extensions
+RUN apt-get update && apt-get install -y libicu-dev \
+    && docker-php-ext-install mysqli pdo pdo_mysql intl
 
 # Enable mod_rewrite for Apache
 RUN a2enmod rewrite
